@@ -3,4 +3,8 @@ My work for SSW 215, Fall 2026
 Backling Karikari
 I would like to build a really cool app or website that a lot of people would use or like to visit
 ## Labs
+<<<<<<< HEAD
 - Lab 2 — edited this line on my laptop
+=======
+- Lab 2 — edited this line in the browser
+>>>>>>> dfd3357ca6c552e93e152fd04fec8149383c8e20
