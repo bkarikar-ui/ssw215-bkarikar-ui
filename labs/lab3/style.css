@@ -1,0 +1,153 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #f3f5f7;
+  --panel: #ffffff;
+  --text: #1e2a39;
+  --muted: #5b6674;
+  --accent: #2f6fed;
+  --accent-dark: #1f53c5;
+  --border: #d8e0ea;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.container {
+  width: min(100%, 960px);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.site-header {
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  padding: 3rem 0;
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.hero-text {
+  flex: 1 1 0;
+}
+
+.hero img {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--border);
+}
+
+h1 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  line-height: 1.15;
+}
+
+.subtitle {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: 1.1rem;
+  max-width: 42rem;
+}
+
+.bio {
+  margin: 0 0 1.5rem;
+  max-width: 42rem;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.85rem 1.4rem;
+  background: var(--accent);
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.button:hover,
+.button:focus {
+  background: var(--accent-dark);
+}
+
+.projects {
+  padding: 3rem 0;
+}
+
+.projects h2 {
+  margin: 0 0 1rem;
+  font-size: clamp(1.8rem, 2vw, 2.4rem);
+}
+
+.projects ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.projects li {
+  margin-bottom: 0.75rem;
+}
+
+.site-footer {
+  background: var(--panel);
+  border-top: 1px solid var(--border);
+  padding: 1.25rem 0;
+  text-align: center;
+}
+
+.site-footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.site-footer a:hover,
+.site-footer a:focus {
+  text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+  .site-header {
+    padding: 2rem 0;
+  }
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero img {
+    width: 220px;
+    height: 220px;
+  }
+
+  .subtitle,
+  .bio {
+    max-width: none;
+  }
+}
