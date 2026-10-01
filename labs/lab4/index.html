@@ -8,9 +8,14 @@
   </head>
   <body>
     <header class="site-header">
-      <div class="container hero">
-        <div class="hero-text">
-          <h1>Backling Karikari</h1>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#projects">Projects</a>
+        <a href="https://github.com/bkarikar-ui" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+
+      <section class="hero-section" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <h1 id="page-title">Backling Karikari</h1>
           <p class="subtitle">
             Software engineering student passionate about technology,
             problem-solving, and creating solutions that help others.
@@ -23,42 +28,36 @@
           </p>
           <a class="button" href="#projects">See my projects</a>
         </div>
-        <img
-          src="./assets/avatar.jpg"
-          width="240"
-          height="240"
-          alt="Backling Karikari portrait"
-        />
-      </div>
+
+        <img class="hero-avatar" src="./assets/avatar.jpg" alt="Backling Karikari portrait" />
+      </section>
     </header>
 
     <main>
-      <section class="projects" id="projects">
-        <div class="container">
-          <h2>Projects</h2>
-          <ul>
-            <li>
-              Built an Arduino-based robot that uses A* pathfinding to navigate a
-              grid.
-            </li>
-            <li>
-              Designed a smart watering system using sensors to monitor plants.
-            </li>
-            <li>
-              Want to make useful software tools that help college students stay
-              organized.
-            </li>
-          </ul>
+      <section class="projects-section" id="projects" aria-labelledby="projects-heading">
+        <h2 id="projects-heading">Projects</h2>
+
+        <div class="projects-grid">
+          <article class="card">
+            <h3>Robot navigation</h3>
+            <p>Built an Arduino-based robot that uses A* pathfinding to navigate a grid.</p>
+          </article>
+
+          <article class="card">
+            <h3>Smart watering system</h3>
+            <p>Designed a smart watering system using sensors to monitor plants.</p>
+          </article>
+
+          <article class="card">
+            <h3>Student organization tools</h3>
+            <p>Want to make useful software tools that help college students stay organized.</p>
+          </article>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <div class="container">
-        <a href="https://github.com/bkarikar-ui" target="_blank" rel="noopener">
-          GitHub
-        </a>
-      </div>
+      <p>Backling Karikari</p>
     </footer>
   </body>
 </html>
