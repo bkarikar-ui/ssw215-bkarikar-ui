@@ -96,15 +96,35 @@ h1 {
   display: inline-block;
   padding: 0.85rem 1.4rem;
   background: var(--accent);
+  border: 0;
   border-radius: 999px;
   color: #102033;
+  font: inherit;
   font-weight: 700;
   text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.button:hover,
-.button:focus {
+.button:not(:disabled):hover {
   background: var(--accent-strong);
+}
+
+.button:focus-visible {
+  outline: 0.2rem solid var(--text);
+  outline-offset: 0.2rem;
+}
+
+.button:not(:disabled):active {
+  background: #4f91dc;
+  transform: scale(0.97);
+}
+
+.button:disabled {
+  background: #687587;
+  color: #d4d9e0;
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 .hero-avatar {
@@ -143,10 +163,11 @@ main {
   background: rgba(255, 255, 255, 0.04);
   border: 0.0625rem solid var(--border);
   border-radius: 1rem;
-  /* hand-edited by Backling Karikari*/
-.featured { 
-  background-color: #fff7e6;
 }
+
+.card.featured {
+  background-color: #fff7e6;
+  color: #1b2a41;
 }
 
 .card h3 {
