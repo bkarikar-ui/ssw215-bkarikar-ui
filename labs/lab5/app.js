@@ -5,14 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const totalProjects = cards.length;
 
   const updateProjects = () => {
-    const query = filterInput.value.trim().toLowerCase();
+    const query = filterInput.value.trim().toLowerCase(); // hand-edited by BK
     let visibleCount = 0;
 
     cards.forEach((card) => {
-      const cardText = card.textContent.toLowerCase();
+      const cardText = card.textContent.toLowerCase(); // hand-edited by BK
       const matches = query === '' || cardText.includes(query);
 
-      card.classList.toggle('hidden', !matches);
+      card.classList.toggle('is-hidden', !matches);
 
       if (matches) {
         visibleCount += 1;

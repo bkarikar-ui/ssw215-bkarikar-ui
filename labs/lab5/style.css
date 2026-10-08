@@ -213,8 +213,8 @@ main {
   margin: 0;
 }
 
-.hidden {
-  display: none;
+.is-hidden // hand-edited by BK {
+   display: none;
 }
 
 .site-footer {
