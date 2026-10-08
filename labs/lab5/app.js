@@ -5,21 +5,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const totalProjects = cards.length;
 
   const updateProjects = () => {
-    const query = filterInput.value.trim().toLowerCase(); // hand-edited by BK
+    const query = filterInput.value.trim().toLowerCase();
     let visibleCount = 0;
+    const visibleTitles = [];
 
     cards.forEach((card) => {
-      const cardText = card.textContent.toLowerCase(); // hand-edited by BK
+      const cardText = card.textContent.toLowerCase();
       const matches = query === '' || cardText.includes(query);
 
-      card.classList.toggle('is-hidden', !matches);
+      card.classList.toggle('hidden', !matches);
 
       if (matches) {
         visibleCount += 1;
+        visibleTitles.push(card.querySelector('h3').textContent.trim());
       }
     });
 
     countElement.textContent = `Showing ${visibleCount} of ${totalProjects} projects`;
+    console.log('Visible projects:', visibleTitles);
   };
 
   if (filterInput) {
