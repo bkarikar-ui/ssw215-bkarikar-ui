@@ -9,7 +9,11 @@
   --muted: rgba(255, 255, 255, 0.8);
   --accent: #8ec5ff;
   --accent-strong: #6eaef7;
+  --accent-deep: #4f91dc;
+  --disabled-bg: #687587;
+  --disabled-text: #d4d9e0;
   --border: rgba(255, 255, 255, 0.14);
+  --shadow: rgba(0, 0, 0, 0.2);
 }
 
 html {
@@ -57,7 +61,7 @@ img {
 }
 
 .site-nav a:hover,
-.site-nav a:focus {
+.site-nav a:focus-visible {
   color: var(--accent);
 }
 
@@ -65,7 +69,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 4rem;      /* hand-edited by Backling Karikari*/
+  gap: 4rem;
   padding: 2rem 0 3rem;
 }
 
@@ -94,20 +98,23 @@ h1 {
 
 .button {
   display: inline-block;
+  margin-right: 0.75rem;
+  margin-bottom: 0.75rem;
   padding: 0.85rem 1.4rem;
   background: var(--accent);
-  border: 0;
+  border: 0.125rem solid transparent;
   border-radius: 999px;
   color: #102033;
   font: inherit;
   font-weight: 700;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .button:not(:disabled):hover {
   background: var(--accent-strong);
+  box-shadow: 0 0.5rem 1.2rem rgba(110, 174, 247, 0.35);
 }
 
 .button:focus-visible {
@@ -116,15 +123,16 @@ h1 {
 }
 
 .button:not(:disabled):active {
-  background: #4f91dc;
+  background: var(--accent-deep);
   transform: scale(0.97);
 }
 
 .button:disabled {
-  background: #687587;
-  color: #d4d9e0;
+  background: var(--disabled-bg);
+  color: var(--disabled-text);
   cursor: not-allowed;
   opacity: 0.7;
+  box-shadow: none;
 }
 
 .hero-avatar {
@@ -150,6 +158,36 @@ main {
   font-size: clamp(2rem, 4vw, 2.75rem);
 }
 
+.projects-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.projects-toolbar label {
+  font-weight: 700;
+}
+
+.projects-toolbar input {
+  width: min(100%, 22rem);
+  padding: 0.75rem 0.9rem;
+  border: 0.0625rem solid var(--border);
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font: inherit;
+}
+
+.projects-toolbar input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.project-count {
+  margin: 0 0 1.5rem;
+  color: var(--muted);
+}
+
 .projects-grid {
   display: flex;
   flex-wrap: wrap;
@@ -163,11 +201,7 @@ main {
   background: rgba(255, 255, 255, 0.04);
   border: 0.0625rem solid var(--border);
   border-radius: 1rem;
-}
-
-.card.featured {
-  background-color: #fff7e6;
-  color: #1b2a41;
+  box-shadow: 0 0.75rem 1.5rem var(--shadow);
 }
 
 .card h3 {
@@ -177,6 +211,10 @@ main {
 
 .card p {
   margin: 0;
+}
+
+.hidden {
+  display: none;
 }
 
 .site-footer {

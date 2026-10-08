@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Backling Karikari</title>
     <link rel="stylesheet" href="./style.css" />
+    <script src="./app.js" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -40,6 +41,13 @@
       <section class="projects-section" id="projects" aria-labelledby="projects-heading">
         <h2 id="projects-heading">Projects</h2>
 
+        <div class="projects-toolbar">
+          <label for="filter-input">Filter projects</label>
+          <input id="filter-input" type="text" name="filter" aria-label="Filter projects" />
+        </div>
+
+        <p id="project-count" class="project-count" aria-live="polite">Showing 3 of 3 projects</p>
+
         <div class="projects-grid">
           <article class="card">
             <h3>Robot navigation</h3>
@@ -51,7 +59,7 @@
             <p>Designed a smart watering system using sensors to monitor plants.</p>
           </article>
 
-          <article class="card featured"> <!-- hand-edited by Backling Karikari-->
+          <article class="card">
             <h3>Student organization tools</h3>
             <p>Want to make useful software tools that help college students stay organized.</p>
           </article>
