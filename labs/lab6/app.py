@@ -21,6 +21,12 @@ projects_db = [
         "description": "Want to make useful software tools that help college students stay organized.",
         "likes": 0,
     },
+    {
+        "id": 4,
+        "title": "Web Scraper",
+        "description": "Created a web scraper to extract data from multiple websites.",
+        "likes": 0,
+    },
 ]
 
 
