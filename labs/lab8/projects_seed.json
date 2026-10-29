@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Robot navigation",
+    "description": "Built an Arduino-based robot that uses A* pathfinding to navigate a grid.",
+    "likes": 7
+  },
+  {
+    "id": 2,
+    "title": "Smart watering system",
+    "description": "Designed a smart watering system using sensors to monitor plants.",
+    "likes": 7
+  },
+  {
+    "id": 3,
+    "title": "My Tools",
+    "description": "Want to make useful software tools that help college students stay organized.",
+    "likes": 10
+  },
+  {
+    "id": 4,
+    "title": "Web Scraper",
+    "description": "Created a web scraper to extract data from multiple websites.",
+    "likes": 4
+  },
+  {
+    "id": 5,
+    "title": "This is a New Title",
+    "description": "",
+    "likes": 0
+  },
+  {
+    "id": 6,
+    "title": "Another New Project",
+    "description": "",
+    "likes": 0
+  }
+]
