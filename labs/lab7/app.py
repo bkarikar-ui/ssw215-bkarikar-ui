@@ -1,7 +1,7 @@
 import json
 import os
 
-from flask import Flask, jsonify, render_template, send_from_directory
+from flask import Flask, jsonify, render_template, request, send_from_directory
 
 app = Flask(__name__)
 
@@ -21,6 +21,28 @@ def save_projects(projects):
 @app.route("/")
 def index():
     return render_template("index.html", projects=load_projects())
+
+
+@app.route("/api/projects", methods=["POST"])
+def create_project():
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict):
+        return jsonify({"error": "A project title is required"}), 400
+
+    title = data.get("title")
+    if not isinstance(title, str) or not title.strip():
+        return jsonify({"error": "A project title is required"}), 400
+
+    projects = load_projects()
+    project = {
+        "id": max((item["id"] for item in projects), default=0) + 1,
+        "title": title.strip(),
+        "description": "",
+        "likes": 0,
+    }
+    projects.append(project)
+    save_projects(projects)
+    return jsonify(project), 201
 
 
 @app.route("/assets/<path:filename>")
