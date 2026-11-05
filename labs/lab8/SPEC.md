@@ -79,6 +79,8 @@ and likes (an integer).
 - GET /api/projects MUST return every project as a JSON array with status code 200, built from each project's to_dict() method.
 - Adding a project and upvoting a project MUST both work exactly as they did in Lab 7, writing to the database instead of to a file.
 - A project created with the Add project form MUST be attached to the same seeded author.
+- The Jinja template MUST render the author's name alongside each project card on the page. <!-- written by BK -->
+- GET /api/projects MUST include the author's name in each project's JSON representation. <!-- written by BK -->
 
 ## 4. Acceptance Checklist
 - [x] Starting the server creates instance/portfolio.db, and the page shows the projects that were in projects_seed.json.
@@ -89,5 +91,7 @@ and likes (an integer).
 - [x] instance/ and *.db are ignored by Git and do not appear in git status.
 - [ ] instance/portfolio.db contains two tables.
 - [ ] Deleting instance/portfolio.db and restarting rebuilds both tables with the seed data.
+- [ ] Each project card on the web page displays the author's name. <!-- written by BK -->
+- [ ] Opening [http://127.0.0.1:5000/api/projects](http://127.0.0.1:5000/api/projects) shows the author's name for every project. <!-- written by BK -->
 ## 5. Audit Protocol
 - Inspect the generated code line by line with `git diff --staged` before committing.
