@@ -14,11 +14,21 @@ os.makedirs(app.instance_path, exist_ok=True)
 db = SQLAlchemy(app)
 
 
+SEED_AUTHOR_NAME = "Backling Karikari"
+
+
+class Author(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    projects = db.relationship("Project", backref="author")
+
+
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120), nullable=False, unique=True)
     description = db.Column(db.Text, nullable=False, default="")
     likes = db.Column(db.Integer, nullable=False, default=0)
+    author_id = db.Column(db.Integer, db.ForeignKey("author.id"), nullable=False)
 
     def to_dict(self):
         return {
@@ -26,6 +36,7 @@ class Project(db.Model):
             "title": self.title,
             "description": self.description,
             "likes": self.likes,
+            "author": self.author.name,
         }
 
 
@@ -37,15 +48,19 @@ def init_seed_data():
     with open(seed_path, encoding="utf-8") as seed_file:
         seed_projects = json.load(seed_file)
 
-    db.session.add_all(
+    author = Author(name=SEED_AUTHOR_NAME)
+    projects = [
         Project(
             id=project["id"],
             title=project["title"],
             description=project.get("description", ""),
             likes=project.get("likes", 0),
+            author=author,
         )
         for project in seed_projects
-    )
+    ]
+    db.session.add(author)
+    db.session.add_all(projects)
     try:
         db.session.commit()
     except SQLAlchemyError:
@@ -87,7 +102,12 @@ def create_project():
     if Project.query.filter_by(title=normalized_title).first() is not None:
         return jsonify({"error": "A project with this title already exists"}), 400
 
-    project = Project(title=normalized_title)
+    author = Author.query.filter_by(name=SEED_AUTHOR_NAME).first()
+    if author is None:
+        app.logger.error("Seed author %r is missing", SEED_AUTHOR_NAME)
+        return jsonify({"error": "The project could not be saved"}), 500
+
+    project = Project(title=normalized_title, author=author)
     db.session.add(project)
     try:
         db.session.commit()

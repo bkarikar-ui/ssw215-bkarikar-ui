@@ -188,6 +188,10 @@ main {
   color: var(--muted);
 }
 
+.project-form-message {
+  color: #ffb4b4;
+}
+
 .projects-grid {
   display: flex;
   flex-wrap: wrap;

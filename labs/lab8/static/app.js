@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const projectsGrid = document.querySelector('.projects-grid');
   const projectForm = document.querySelector('.project-form');
   const titleInput = document.getElementById('new-title');
+  const projectFormMessage = document.getElementById('project-form-message');
 
   const updateProjects = () => {
     const query = filterInput.value.trim().toLowerCase();
@@ -38,6 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const title = document.createElement('h3');
     title.textContent = project.title;
     card.append(title);
+
+    const author = document.createElement('p');
+    author.textContent = project.author;
+    card.append(author);
 
     const description = document.createElement('p');
     description.textContent = project.description;
@@ -96,6 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   projectForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+    projectFormMessage.classList.add('hidden');
+    projectFormMessage.textContent = '';
 
     try {
       const response = await fetch('/api/projects', {
@@ -104,6 +111,12 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify({ title: titleInput.value }),
       });
       if (!response.ok) {
+        const data = await response.json();
+        if (typeof data.error === 'string') {
+          projectFormMessage.textContent = data.error;
+          projectFormMessage.classList.remove('hidden');
+          return;
+        }
         throw new Error(`Create project request failed with status ${response.status}`);
       }
 
@@ -111,6 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (
         !Number.isInteger(project.id) ||
         typeof project.title !== 'string' ||
+        typeof project.author !== 'string' ||
         typeof project.description !== 'string' ||
         !Number.isInteger(project.likes)
       ) {
@@ -121,6 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
       titleInput.value = '';
       updateProjects();
     } catch (error) {
+      projectFormMessage.textContent = 'Unable to create project. Please try again.';
+      projectFormMessage.classList.remove('hidden');
       console.error('Unable to create project:', error);
     }
   });
