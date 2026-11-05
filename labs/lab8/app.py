@@ -83,7 +83,11 @@ def create_project():
     if not isinstance(title, str) or not title.strip():
         return jsonify({"error": "A project title is required"}), 400
 
-    project = Project(title=title.strip())
+    normalized_title = title.strip()
+    if Project.query.filter_by(title=normalized_title).first() is not None:
+        return jsonify({"error": "A project with this title already exists"}), 400
+
+    project = Project(title=normalized_title)
     db.session.add(project)
     try:
         db.session.commit()

@@ -30,24 +30,19 @@
 - The route MUST append the new project to projects.json before it returns.
 - The new project's id MUST be one higher than the largest id already in the file.
 - A create request whose title is missing, or is empty once surrounding spaces are removed, MUST be rejected by the server with status code 400, and the rejection MUST happen before projects.json is opened.
-- All project data MUST live in a SQLite database managed by Flask-SQLAlchemy. app.py
-MUST NOT read or write projects_seed.json at runtime, except when seeding an empty database.
+- All project data MUST live in a SQLite database managed by Flask-SQLAlchemy. app.py MUST NOT read or write projects_seed.json at runtime, except when seeding an empty database.
 - The Project model MUST declare id as the primary key, title as db.String(120) with nullable=False and unique=True, and likes as db.Integer with default=0.
 - The database MUST be created by db.create_all() inside an app.app_context() block when the server starts.
 - init_seed_data() MUST insert the projects from projects_seed.json only when the projects table is empty, so restarting the server never duplicates rows.
 - Any commit the database refuses MUST be followed by db.session.rollback(), and the route MUST return 400 with a JSON error rather than crashing.
 ## 3. UI Content & Interface Contract
-- Hero header: my full name Backling Karikari, the subtitle "Software engineering student passionate about technology, problem-solving, and creating solutions that help others.", and
-this bio: "I’m a software engineering student who has always been interested in technology and how things work. I’m passionate about building useful software, learning new skills, and using technology to make a positive impact in my community.".
+- Hero header: my full name Backling Karikari, the subtitle "Software engineering student passionate about technology, problem-solving, and creating solutions that help others.", and this bio: "I’m a software engineering student who has always been interested in technology and how things work. I’m passionate about building useful software, learning new skills, and using technology to make a positive impact in my community.".
 - Action link: a button labelled "See my projects" that links to `#projects`.
-- Projects section with id="projects": lists these items: Built an Arduino-based robot that uses A* pathfinding to navigate a grid.
-Designed a smart watering system using sensors to monitor plants.
-Want to make useful software tools that help college students stay organized.
+- Projects section with id="projects": lists these items: Built an Arduino-based robot that uses A* pathfinding to navigate a grid. Designed a smart watering system using sensors to monitor plants. Want to make useful software tools that help college students stay organized.
 - Social link: GitHub (https://github.com/bkarikar-ui) MUST open in a new tab
 (target="_blank").
 - The page background MUST be dark navy (#1b2a41) with white text.
-- The page MUST use semantic landmarks: one <header>, one <nav>, one <main>, one
-<footer>, and each content group inside its own <section> with a heading.
+- The page MUST use semantic landmarks: one <header>, one <nav>, one <main>, one <footer>, and each content group inside its own <section> with a heading.
 - There MUST be exactly one <h1>, and heading levels MUST NOT skip (h1 then h2 then h3).
 - <nav> MUST contain a link to the projects section and a link to my GitHub profile.
 - Each project MUST be an <article class="card"> inside a container that uses display: flex, flex-wrap: wrap and gap.
@@ -57,9 +52,7 @@ Want to make useful software tools that help college students stay organized.
 - Above the projects there MUST be a text input with id="filter-input", and a <label>
 bound to it reading "Filter projects".
 - There MUST be an element with id="project-count" that reads "Showing X of Y projects".
-- As the user types, cards whose text does not contain what was typed MUST be hidden by
-adding the class "hidden", and the count MUST update immediately — no button, no page
-reload.
+- As the user types, cards whose text does not contain what was typed MUST be hidden by adding the class "hidden", and the count MUST update immediately — no button, no page reload.
 - Emptying the box MUST bring every card back.
 - style.css MUST define .hidden { display: none; }.
 - Each time the filter runs, app.js MUST print the titles of the projects that are still
