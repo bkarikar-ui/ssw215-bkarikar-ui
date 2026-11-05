@@ -21,18 +21,18 @@
     "id": 4,
     "title": "Web Scraper",
     "description": "Created a web scraper to extract data from multiple websites.",
-    "likes": 4
+    "likes": 5
   },
   {
     "id": 5,
     "title": "This is a New Title",
     "description": "",
-    "likes": 0
+    "likes": 5
   },
   {
     "id": 6,
     "title": "Another New Project",
     "description": "",
-    "likes": 0
+    "likes": 4
   }
 ]

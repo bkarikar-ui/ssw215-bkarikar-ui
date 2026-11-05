@@ -54,12 +54,14 @@
           <label for="new-title">New project title</label>
           <input id="new-title" type="text" name="title" />
           <button type="submit">Add project</button>
+          <p id="project-form-message" class="project-form-message hidden" role="alert"></p>
         </form>
 
         <div class="projects-grid">
           {% for project in projects %}
           <article class="card" data-project-id="{{ project.id }}">
             <h3>{{ project.title }}</h3>
+            <p>{{ project.author }}</p>
             <p>{{ project.description }}</p>
             <!-- hand-edited by BK -->
             {% if project.likes > 10 %}

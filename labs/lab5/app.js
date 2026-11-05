@@ -5,12 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const totalProjects = cards.length;
 
   const updateProjects = () => {
-    const query = filterInput.value.trim().toLowerCase();
+    const query = filterInput.value.trim().toLowerCase(); // Hand-edited by BK
     let visibleCount = 0;
     const visibleTitles = [];
 
     cards.forEach((card) => {
-      const cardText = card.textContent.toLowerCase();
+      const cardText = card.textContent.toLowerCase(); // Hand-edited by BK
       const matches = query === '' || cardText.includes(query);
 
       card.classList.toggle('hidden', !matches);

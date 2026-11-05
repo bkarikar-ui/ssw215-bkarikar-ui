@@ -3,13 +3,13 @@
 }
 
 :root {
-  --bg: #f3f5f7;
-  --panel: #ffffff;
-  --text: #1e2a39;
-  --muted: #5b6674;
-  --accent: #2f6fed;
-  --accent-dark: #1f53c5;
-  --border: #d8e0ea;
+  --bg: #1b2a41;
+  --panel: #213a56;
+  --text: #ffffff;
+  --muted: #d5deea;
+  --accent: #8ec5ff;
+  --accent-dark: #6eaef7;
+  --border: rgba(255, 255, 255, 0.14);
 }
 
 html {
@@ -84,7 +84,7 @@ h1 {
   display: inline-block;
   padding: 0.85rem 1.4rem;
   background: var(--accent);
-  color: #ffffff;
+  color: #102033;
   text-decoration: none;
   border-radius: 999px;
   font-weight: 700;

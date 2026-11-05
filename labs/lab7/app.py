@@ -6,6 +6,7 @@ from flask import Flask, jsonify, render_template, request, send_from_directory
 app = Flask(__name__)
 
 PROJECTS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "projects.json")
+AUTHOR_NAME = "Backling Karikari"
 
 
 def load_projects():
@@ -18,9 +19,19 @@ def save_projects(projects):
         json.dump(projects, project_file, indent=2)
 
 
+def project_with_author(project):
+    return {**project, "author": AUTHOR_NAME}
+
+
 @app.route("/")
 def index():
-    return render_template("index.html", projects=load_projects())
+    projects = [project_with_author(project) for project in load_projects()]
+    return render_template("index.html", projects=projects)
+
+
+@app.route("/api/projects", methods=["GET"])
+def list_projects():
+    return jsonify([project_with_author(project) for project in load_projects()])
 
 
 @app.route("/api/projects", methods=["POST"])
@@ -34,15 +45,19 @@ def create_project():
         return jsonify({"error": "A project title is required"}), 400
 
     projects = load_projects()
+    normalized_title = title.strip()
+    if any(project["title"] == normalized_title for project in projects):
+        return jsonify({"error": "A project with this title already exists"}), 400
+
     project = {
         "id": max((item["id"] for item in projects), default=0) + 1,
-        "title": title.strip(),
+        "title": normalized_title,
         "description": "",
         "likes": 0,
     }
     projects.append(project)
     save_projects(projects)
-    return jsonify(project), 201
+    return jsonify(project_with_author(project)), 201
 
 
 @app.route("/assets/<path:filename>")
