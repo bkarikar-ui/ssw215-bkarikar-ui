@@ -156,7 +156,7 @@ def smart_create_project():
         for technology in extracted.technologies
         if technology.strip()
     )
-    if not title or not summary or not technologies:
+    if not title or not summary:
         return jsonify({"error": "The AI provider returned incomplete project details"}), 502
 
     project = Project(
