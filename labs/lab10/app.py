@@ -11,6 +11,7 @@ from ai_service import (
     clear_github_import_session,
     extract_project,
     get_github_import_session,
+    refine_github_import_blind,
     refine_github_import,
     start_github_import,
 )
@@ -249,6 +250,32 @@ def refine_github_project_import():
 
     try:
         draft = refine_github_import(session_id, feedback.strip())
+    except AIRefusalError:
+        return jsonify({"error": "The project draft could not be refined"}), 422
+    except AIServiceUnavailableError:
+        app.logger.exception("The AI provider is unavailable")
+        return jsonify({"error": "The AI provider is unavailable"}), 503
+
+    return jsonify(draft), 200
+
+
+@app.route("/api/projects/git-refine-blind", methods=["POST"])
+def refine_github_project_import_blind():
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict):
+        return jsonify({"error": "A session id and feedback are required"}), 400
+
+    session_id = data.get("session_id")
+    feedback = data.get("feedback")
+    if not isinstance(session_id, str):
+        return jsonify({"error": "A session id and feedback are required"}), 400
+    if not isinstance(feedback, str) or not feedback.strip():
+        return jsonify({"error": "Feedback is required"}), 400
+    if get_github_import_session(session_id) is None:
+        return jsonify({"error": "Draft session not found"}), 404
+
+    try:
+        draft = refine_github_import_blind(session_id, feedback)
     except AIRefusalError:
         return jsonify({"error": "The project draft could not be refined"}), 422
     except AIServiceUnavailableError:

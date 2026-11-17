@@ -126,5 +126,16 @@ def refine_github_import(session_id, feedback):
     return draft.model_dump()
 
 
+def refine_github_import_blind(session_id, feedback):
+    if get_github_import_session(session_id) is None:
+        return None
+
+    draft, _ = _request_extraction(
+        [{"role": "user", "content": feedback}],
+        GitHubProjectDraft,
+    )
+    return draft.model_dump()
+
+
 def clear_github_import_session(session_id):
     return github_import_sessions.pop(session_id, None) is not None

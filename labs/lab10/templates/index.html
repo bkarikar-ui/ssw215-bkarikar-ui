@@ -79,10 +79,23 @@
             <form id="github-feedback-form" class="github-feedback-form">
               <label for="github-feedback">Feedback</label>
               <textarea id="github-feedback" name="feedback" rows="3"></textarea>
-              <button type="submit">Send feedback</button>
+              <div class="github-refine-actions">
+                <button type="submit">Send feedback</button>
+                <button id="github-blind-refine-button" type="button">Refine without history</button>
+              </div>
               <button id="github-approve-button" type="button">Approve and save</button>
               <p id="github-draft-message" class="project-form-message hidden" role="alert"></p>
             </form>
+
+            <section id="github-blind-preview" class="github-blind-preview hidden" aria-labelledby="github-blind-preview-heading" aria-live="polite">
+              <h3 id="github-blind-preview-heading">History-free preview</h3>
+              <p>This preview is for display only and will not change the saved draft.</p>
+              <p><strong>Title:</strong> <span id="github-blind-title"></span></p>
+              <p><strong>Summary:</strong> <span id="github-blind-summary"></span></p>
+              <p><strong>Technologies:</strong></p>
+              <ul id="github-blind-technologies"></ul>
+              <p><strong>Difficulty:</strong> <span id="github-blind-difficulty"></span></p>
+            </section>
           </section>
         </section>
 
