@@ -110,6 +110,10 @@ technologies joined into a single text column.
 - A session_id that is not in the dictionary MUST be answered with status code 404.
 - A repository GitHub does not return MUST be answered with 404, and a README shorter than 20 characters with 400. Neither case MUST reach the provider.
 - A project MUST appear in the list on the page, and in /api/projects, only after it has been approved.
+- POST /api/projects/git-refine-blind MUST accept "session_id" and "feedback" and MUST return a draft with status code 200.
+- The request it sends to the provider MUST contain the feedback text and nothing else: no README, no earlier draft, and no earlier turn of the conversation.
+- It MUST NOT change the stored session, and MUST NOT write to the database. Its answer is for display only.
+- The draft panel MUST have a second button labelled "Refine without history" beside "Send feedback".
 
 ## 4. Acceptance Checklist
 - [x] Starting the server creates instance/portfolio.db, and the page shows the projects that were in projects_seed.json.
