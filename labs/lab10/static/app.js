@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const githubFeedbackForm = document.getElementById('github-feedback-form');
   const githubFeedback = document.getElementById('github-feedback');
   const githubDraftMessage = document.getElementById('github-draft-message');
+  const githubBlindRefineButton = document.getElementById('github-blind-refine-button');
+  const githubBlindPreview = document.getElementById('github-blind-preview');
   const githubApproveButton = document.getElementById('github-approve-button');
   let githubSessionId = null;
 
@@ -214,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
     element.classList.remove('hidden');
   };
 
-  const showGithubDraft = (draft) => {
+  const showGithubDraftFields = (draft, prefix) => {
     const validDifficulties = ['Beginner', 'Intermediate', 'Advanced'];
     if (
       typeof draft.title !== 'string' ||
@@ -226,21 +228,30 @@ document.addEventListener('DOMContentLoaded', () => {
       throw new Error('GitHub draft response did not include valid project details');
     }
 
-    document.getElementById('github-draft-title').textContent = draft.title;
-    document.getElementById('github-draft-summary').textContent = draft.summary;
-    document.getElementById('github-draft-difficulty').textContent = draft.difficulty;
+    document.getElementById(`${prefix}-title`).textContent = draft.title;
+    document.getElementById(`${prefix}-summary`).textContent = draft.summary;
+    document.getElementById(`${prefix}-difficulty`).textContent = draft.difficulty;
 
-    const technologyList = document.getElementById('github-draft-technologies');
+    const technologyList = document.getElementById(`${prefix}-technologies`);
     technologyList.replaceChildren();
     draft.technologies.forEach((technology) => {
       const item = document.createElement('li');
       item.textContent = technology;
       technologyList.append(item);
     });
+  };
 
+  const showGithubDraft = (draft) => {
+    showGithubDraftFields(draft, 'github-draft');
     githubDraftMessage.classList.add('hidden');
     githubDraftMessage.textContent = '';
+    githubBlindPreview.classList.add('hidden');
     githubDraftPanel.classList.remove('hidden');
+  };
+
+  const showGithubBlindPreview = (draft) => {
+    showGithubDraftFields(draft, 'github-blind');
+    githubBlindPreview.classList.remove('hidden');
   };
 
   githubImportForm.addEventListener('submit', async (event) => {
@@ -248,6 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
     githubImportMessage.classList.add('hidden');
     githubImportMessage.textContent = '';
     githubDraftPanel.classList.add('hidden');
+    githubBlindPreview.classList.add('hidden');
     githubSessionId = null;
 
     try {
@@ -303,6 +315,36 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (error) {
       showMessage(githubDraftMessage, 'Unable to refine this draft. Please try again.');
       console.error('Unable to refine GitHub draft:', error);
+    }
+  });
+
+  githubBlindRefineButton.addEventListener('click', async () => {
+    githubDraftMessage.classList.add('hidden');
+    githubDraftMessage.textContent = '';
+    if (!githubSessionId) {
+      showMessage(githubDraftMessage, 'Fetch a draft before refining it.');
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/projects/git-refine-blind', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          session_id: githubSessionId,
+          feedback: githubFeedback.value,
+        }),
+      });
+      if (!response.ok) {
+        const data = await response.json();
+        showMessage(githubDraftMessage, data.error || 'Unable to refine this draft.');
+        return;
+      }
+
+      showGithubBlindPreview(await response.json());
+    } catch (error) {
+      showMessage(githubDraftMessage, 'Unable to refine this draft. Please try again.');
+      console.error('Unable to refine GitHub draft without history:', error);
     }
   });
 

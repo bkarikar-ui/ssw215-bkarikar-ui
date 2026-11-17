@@ -265,6 +265,12 @@ main {
   resize: vertical;
 }
 
+.github-refine-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
 .projects-toolbar input::placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
